@@ -18,11 +18,9 @@ class Portfolio{
 
     //profit method
     profit(start_date, end_date){
-        let profit = 0;
-        this.stocks.forEach(stock => {
-            // Asssuming price is a stock method that receive a date and returns its price. 
-            profit += stock.price(end_date) - stock.price(start_date);
-        });
+        // Asssuming price is a stock method that receive a date and returns its price. 
+        const reducer = (prev, current) => prev + current.price(end_date) - current.price(start_date);
+        let profit = this.stocks.reduce(reducer);
         let annualized_profit = 365 / this.days(start_date, end_date) * profit;
         return annualized_profit;
     }
